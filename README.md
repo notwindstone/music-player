@@ -1,75 +1,69 @@
-# Nuxt Minimal Starter
+local-first app based on the webview
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## tech stack
 
-## Setup
+### desktop
 
-Make sure to install dependencies:
+- Wails
+- TypeScript
+- Svelte 5
+- UnoCSS with presetWind3
+- TypeBox
+- https://github.com/kitschpatrol/svelte-tweakpane-ui
 
-```bash
-# npm
-npm install
+### mobile
 
-# pnpm
-pnpm install
+Probably Jetpack Compose with the Kotlin, but... do we really need it? There is plenty of options there, maybe we can either fork some app or abandon an idea for making a mobile app
 
-# yarn
-yarn install
+## plan
 
-# bun
-bun install
-```
+### yt-dlp
 
-## Development Server
+<details>
 
-Start the development server on `http://localhost:3000`:
+Add a way to download music from the YouTube
 
-```bash
-# npm
-npm run dev
+**Current implementation idea:** tbd
 
-# pnpm
-pnpm dev
+**Results:** tbd
 
-# yarn
-yarn dev
+</details>
 
-# bun
-bun run dev
-```
+### music formats and conversion
 
-## Production
+<details>
 
-Build the application for production:
+Try to support as many file formats as possible, like FLAC, WAV, M4A, MP3, etc.
 
-```bash
-# npm
-npm run build
+Also implement a functionality to convert music formats locally
 
-# pnpm
-pnpm build
+**Current implementation idea:** tbd
 
-# yarn
-yarn build
+**Results:** tbd
 
-# bun
-bun run build
-```
+</details>
 
-Locally preview production build:
+### extensions
 
-```bash
-# npm
-npm run preview
+<details>
 
-# pnpm
-pnpm preview
+JS code can be dynamically fetched from somewhere and then executed with the `new Function(JS_CODE_AS_STRING)`. That is a key idea for implementing user plugin system. Plugins can communicate with the host app and each other through `window.postMessage`, and the variables can be shared using the `window` object. JS code can also handle applying CSS styles, adding DOM nodes, etc. Any fully CSR JS framework will work perfectly.
 
-# yarn
-yarn preview
+The biggest concern here is the security. Even if the `new Function` can't access local variables and runs in a different scope (unlike `eval`), it still has a lot (and I mean really a lot) of other security issues. Executing an unknown code (especially with the access to the filesystem) is a **horrible** thing
 
-# bun
-bun run preview
-```
+Unfortunately, if VSCode, Obsidian, Vencord and other apps can't implement a secure user plugin system, I won't be able to do it too. It's either functionality or security, not both
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+**Current implementation idea:** An extension repository that hosts moderated plugin versions. Moderation will require only a source code and, if differs from usual, build manual. Plugins will run only once on application load, without blocking the main thread
+
+**Results:** custom elements, insane UI customization, etc.
+
+</details>
+
+## design
+
+tbd
+
+## testing
+
+- vitest
+- playwright
